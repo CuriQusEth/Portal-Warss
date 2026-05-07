@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Anton', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-sans);
+    overflow: hidden;
+    touch-action: none; /* Prevent scrolling down on mobile */
+    -webkit-user-select: none;
+    user-select: none;
+}
