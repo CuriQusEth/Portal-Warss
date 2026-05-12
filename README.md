@@ -1,20 +1,42 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Portal Wars
 
-# Run and deploy your AI Studio app
+**Portal Wars** is a fast-paced, strategic real-time portal combat web game. You play as a Portal Commander opening dimensional portals to summon units, launch surprise attacks, and dominate the battlefield against an enemy commander.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/28bf12a5-c918-4fb2-ab9d-1e4c5122f498
+- **Strategic Real-time Combat**: Tap to open portals as units automatically pour through.
+- **Dimensional Warfare**: Defend your portals while destroying the enemy's.
+- **Procedural Waves**: Survive incoming waves of enemies that steadily increase in difficulty.
+- **On-chain Attributed Warfare (ERC-8021)**: Ensure every battle score is immutably written to the blockchain.
+- **Command & Orchestrate (ERC-8004)**: Integrates modern Agent-to-Agent standards to orchestrate battles and manage multi-portal strategies.
 
-## Run Locally
+## Technologies Used
 
-**Prerequisites:**  Node.js
+- **Frontend Core**: React 19, TypeScript, Vite
+- **Styling**: Tailwind CSS v4, Framer Motion
+- **Game Engine**: Custom HTML5 Canvas rendering for 60fps fast-paced battles
+- **Web3 Ecosystem**: Wagmi, Viem
+- **Smart Standard Integrations**: ERC-8021 Attribution, ERC-8004 Trustless Agents
 
+## Technical Information
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Model Context Protocol (MCP) and Agents
+The game is equipped with an AI Agent orchestrator for cross-realm operations and strategic automated warfare. A public `.well-known/agent-card.json` file dictates properties, services, and core agent capabilities.
+
+### Backend Architecture
+This application utilizes a bundled Express backend alongside the Vite development environment for seamless hybrid full-stack routing, necessary for serving dynamic API endpoints such as `/api/mcp` and `/api/agent`.
+
+## Development
+
+Install dependencies and start the application:
+
+```bash
+npm install
+npm run dev
+```
+
+Build the application:
+```bash
+npm run build
+npm start
+```
