@@ -1,4 +1,4 @@
-export const ATTRIBUTION_CODE = "bc_dan8ztqg";
+export const ATTRIBUTION_CODE = "bc_80ls1o4i";
 
 export function withAttribution(calldata: string): string {
     // Basic demonstration of ERC-8021 calldata attribution
