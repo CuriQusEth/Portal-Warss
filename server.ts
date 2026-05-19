@@ -8,6 +8,16 @@ async function startServer() {
 
   app.use(express.json());
 
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
+    next();
+  });
+
   // API Route: MCP
   app.get("/api/mcp", (req, res) => {
     res.json({
@@ -23,6 +33,69 @@ async function startServer() {
 
   app.post("/api/mcp", (req, res) => {
     try {
+      const { method, params } = req.body;
+
+      if (method === 'initialize') {
+          return res.json({
+              protocolVersion: '2024-11-05',
+              capabilities: { tools: {} },
+              serverInfo: {
+                  name: "Portal Wars Orchestrator",
+                  version: "1.0.0"
+              }
+          });
+      }
+  
+      if (method === 'tools/list') {
+          return res.json({
+              tools: [
+                  {
+                      name: "get_race_status",
+                      description: "Get the latest racing status/parameters",
+                      inputSchema: { type: "object", properties: {} }
+                  },
+                  {
+                      name: "start_race",
+                      description: "Initialize a new race condition",
+                      inputSchema: { type: "object", properties: {} }
+                  },
+                  {
+                      name: "get_leaderboard",
+                      description: "Fetch the on-chain leaderboard data",
+                      inputSchema: { type: "object", properties: {} }
+                  },
+                  {
+                      name: "optimize_speed",
+                      description: "Strategically optimize speed handling",
+                      inputSchema: { type: "object", properties: {} }
+                  },
+                  {
+                      name: "get_track_info",
+                      description: "Returns metadata about the active track environments",
+                      inputSchema: { type: "object", properties: {} }
+                  }
+              ]
+          });
+      }
+  
+      if (method === 'tools/call') {
+          const toolName = params?.name;
+          return res.json({
+              content: [{
+                  type: "text",
+                  text: `Executed ${toolName} successfully in Portal Wars realm.`
+              }]
+          });
+      }
+      
+      if (method === 'prompts/list') {
+          return res.json({ prompts: [] });
+      }
+    
+      if (method === 'resources/list') {
+          return res.json({ resources: [] });
+      }
+
       res.json({
         status: "success",
         message: "MCP command received",
