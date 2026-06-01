@@ -32,29 +32,43 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    };
     const body = await req.json();
     const { method, params } = body;
 
+    // Standard JSON-RPC wrapper if requested
+    const isJsonRpc = body.jsonrpc === '2.0';
+    const requestId = body.id;
+
+    function jsonRpcResponse(result: any) {
+        if (isJsonRpc) {
+            return NextResponse.json({
+                jsonrpc: "2.0",
+                id: requestId,
+                result
+            }, { headers });
+        }
+        return NextResponse.json(result, { headers });
+    }
+
     // MCP Implementation based on capabilities
     if (method === 'initialize') {
-        return NextResponse.json({
+        return jsonRpcResponse({
             protocolVersion: '2024-11-05',
             capabilities: { tools: {} },
             serverInfo: {
                 name: "Portal Wars Orchestrator",
                 version: "1.0.0"
             }
-        }, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-              'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
         });
     }
 
     if (method === 'tools/list') {
-        return NextResponse.json({
+        return jsonRpcResponse({
             tools: [
                 {
                     name: "get_race_status",
@@ -82,51 +96,33 @@ export async function POST(req: Request) {
                     inputSchema: { type: "object", properties: {} }
                 }
             ]
-        }, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-              'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
         });
     }
 
     if (method === 'tools/call') {
         const toolName = params?.name;
-        return NextResponse.json({
+        return jsonRpcResponse({
             content: [{
                 type: "text",
                 text: `Executed ${toolName} successfully in Portal Wars realm.`
             }]
-        }, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-              'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
         });
     }
     
     if (method === 'prompts/list') {
-        return NextResponse.json({ prompts: [] });
+        return jsonRpcResponse({ prompts: [] });
     }
   
     if (method === 'resources/list') {
-        return NextResponse.json({ resources: [] });
+        return jsonRpcResponse({ resources: [] });
     }
 
-    return NextResponse.json({
+    return jsonRpcResponse({
       status: "success",
       message: "MCP command received",
       agent: "Portal Wars Orchestrator",
       receivedAt: new Date().toISOString(),
       payload: body
-    }, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        }
     });
 
   } catch (error) {

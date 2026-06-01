@@ -36,6 +36,28 @@
     "tactical-automation",
     "mcp-command-execution"
   ],
+  "skills": [
+    {
+      "name": "get_race_status",
+      "description": "Get the latest racing status/parameters"
+    },
+    {
+      "name": "start_race",
+      "description": "Initialize a new race condition"
+    },
+    {
+      "name": "get_leaderboard",
+      "description": "Fetch the on-chain leaderboard data"
+    },
+    {
+      "name": "optimize_speed",
+      "description": "Strategically optimize speed handling"
+    },
+    {
+      "name": "get_track_info",
+      "description": "Returns metadata about the active track environments"
+    }
+  ],
   "supportedChains": ["eip155:8453"],
   "active": true,
   "status": "online"
