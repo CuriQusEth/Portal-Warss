@@ -10,6 +10,7 @@ import { MainMenu } from './components/MainMenu';
 import { HUD } from './components/HUD';
 import { GameOver } from './components/GameOver';
 import { useAccount, useSendTransaction } from 'wagmi';
+import { Sun } from 'lucide-react';
 
 type GameState = 'MENU' | 'PLAYING' | 'GAMEOVER';
 
@@ -18,6 +19,7 @@ export default function App() {
   const [score, setScore] = useState(0);
   const [wave, setWave] = useState(1);
   const engineRef = useRef<GameEngine | null>(null);
+  const { address, isConnected } = useAccount();
   const { sendTransactionAsync } = useSendTransaction();
 
   useEffect(() => {
@@ -77,12 +79,12 @@ export default function App() {
   }, []);
   
   // "Say GM" on-chain button handler
-  const handleSayGM = async () => {
+  const sendGMTransaction = async () => {
      try {
        await sendTransactionAsync({
-           to: '0x0000000000000000000000000000000000000000', // Burn addr for GM
+           to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3', // GM Contract
            value: 0n,
-           data: '0x474d' // "GM" in hex
+           data: '0x' // Add GM selector if needed, or just 0 ETH transfer as example
        });
      } catch(e) {
        console.error("GM Failed", e);
@@ -91,13 +93,21 @@ export default function App() {
 
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden select-none">
-      {gameState === 'MENU' && (
-          <>
-            <MainMenu onStart={handleStart} />
-            <button onClick={handleSayGM} className="absolute top-4 right-4 z-[60] bg-blue-900/50 hover:bg-blue-800 text-blue-200 text-[10px] font-mono px-3 py-1 rounded border border-blue-500/30 uppercase">
-                Say GM On-Chain
+      {/* Top right container for standard persistent UI buttons across all stages */}
+      <div className="absolute top-4 right-4 z-[60] flex items-center gap-2">
+        {isConnected && (
+            <button 
+                onClick={sendGMTransaction} 
+                className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold"
+            >
+                <Sun size={14} />
+                Say GM
             </button>
-          </>
+        )}
+      </div>
+
+      {gameState === 'MENU' && (
+          <MainMenu onStart={handleStart} />
       )}
       
       {gameState === 'PLAYING' && engineRef.current && (
