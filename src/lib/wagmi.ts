@@ -1,6 +1,6 @@
 import { http, createConfig } from 'wagmi';
 import { base } from 'wagmi/chains';
-import { injected, safe, walletConnect } from 'wagmi/connectors';
+import { injected } from 'wagmi/connectors';
 
 export const config = createConfig({
   chains: [base],
@@ -8,6 +8,11 @@ export const config = createConfig({
     injected(),
   ],
   transports: {
-    [base.id]: http(),
+    // Base Denim Mainnet (200ms native canonical blocks)
+    [base.id]: http('https://mainnet.base.org', {
+      batch: true,
+      retryCount: 3,
+      timeout: 10_000,
+    }),
   },
 });

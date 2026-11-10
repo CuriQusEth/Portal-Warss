@@ -7,7 +7,9 @@ Portal Wars is a fast-paced, strategic real-time portal combat web game. You pla
 - **App URL:** https://portal-warss.vercel.app/
 - **Description:** A fast-paced, strategic real-time portal combat web game.
 - **Capabilities:** portal-battles, cross-realm-management, strategic-warfare, multi-portal-orchestration, realm-defense, tactical-automation, mcp-command-execution
-- **Network Support:** eip155:8453 (Base Mainnet)
+- **Network Support:** eip155:8453 (Base Denim Mainnet - 200ms Native Canonical Blocks)
+- **RPC Endpoint:** `https://mainnet.base.org`
+- **Block Time:** 200ms (Denim Upgrade, Flashblocks deprecated)
 
 ## Tech Stack
 

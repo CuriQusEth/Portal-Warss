@@ -8,6 +8,10 @@ export function MainMenu({ onStart }: { onStart: () => void }) {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/70 border border-blue-500/30 text-blue-300 text-xs font-mono mb-4 tracking-wider uppercase">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Base Denim Mainnet • 200ms Native Blocks</span>
+        </div>
         <h1 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-400 to-indigo-600 tracking-tighter uppercase mb-4" style={{ fontFamily: 'var(--font-display)' }}>
           Portal Wars
         </h1>

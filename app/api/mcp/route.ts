@@ -18,7 +18,9 @@ export async function GET() {
     version: "1.0.0",
     name: "Portal Wars MCP Endpoint",
     status: "active",
-    description: "Active MCP server for Portal Wars Orchestrator Agent",
+    network: "Base Denim Mainnet (eip155:8453)",
+    blockTime: "200ms canonical blocks",
+    description: "Active MCP server for Portal Wars Orchestrator Agent on Base Denim Mainnet",
     capabilities: ["portal-battles", "cross-realm-management", "strategic-warfare"],
     timestamp: new Date().toISOString()
   }, {

@@ -1,7 +1,8 @@
 {
   "name": "Portal Wars Orchestrator",
-  "description": "Portal Wars platformunda çalışan ERC-8004 uyumlu AI Agent. Portal battles, cross-realm management, strategic warfare ve multi-portal orchestration yapan akıllı orchestrator.",
+  "description": "Portal Wars platformunda çalışan ERC-8004 uyumlu AI Agent. Base Denim Mainnet (200ms canonical blok süresi) üzerinde portal battles, cross-realm management, strategic warfare ve multi-portal orchestration yapan akıllı orchestrator.",
   "version": "1.0.0",
+  "network": "Base Denim Mainnet (eip155:8453)",
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "image": "https://portal-warss.vercel.app/logo.png",
   "wallets": {

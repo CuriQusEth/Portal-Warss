@@ -30,12 +30,12 @@ export function GameOver({ score, wave, onRestart }: GameOverProps) {
       const message = generateSIWEMessage(address, score, wave);
       await signMessageAsync({ account: address as `0x${string}`, message });
       
-      setStatus('Recording on Base Mainnet...');
+      setStatus('Recording on Base Denim Mainnet (200ms blocks)...');
       // Encode score data to hex and affix ERC-8021 attribution
-      const rawData = stringToHex(JSON.stringify({ score, wave }));
+      const rawData = stringToHex(JSON.stringify({ score, wave, network: "Base Denim Mainnet", blockTime: "200ms" }));
       const calldata = withAttribution(rawData);
       
-      // Sending a 0 ETH transaction to self on Base with the attribution calldata
+      // Sending a 0 ETH transaction to self on Base Denim Mainnet with the attribution calldata
       const tx = await sendTransactionAsync({
         to: address, 
         value: parseEther('0'),
@@ -43,7 +43,7 @@ export function GameOver({ score, wave, onRestart }: GameOverProps) {
       });
       
       setTxHash(tx);
-      setStatus('Success! Recorded in the Portal Codex.');
+      setStatus('Success! Confirmed in 200ms block on Base Denim.');
     } catch (err: any) {
       console.error(err);
       setStatus(`Failed: ${err.shortMessage || err.message}`);
@@ -66,6 +66,13 @@ export function GameOver({ score, wave, onRestart }: GameOverProps) {
             <div className="flex justify-between items-center">
                 <span className="text-gray-500 text-xs uppercase tracking-widest font-mono">Commander Score</span>
                 <span className="text-blue-400 font-mono text-2xl">{score}</span>
+            </div>
+            <div className="flex justify-between items-center pt-2 mt-2 border-t border-gray-800">
+                <span className="text-gray-500 text-[10px] uppercase tracking-widest font-mono">Network</span>
+                <span className="text-emerald-400 font-mono text-xs flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Base Denim (200ms)
+                </span>
             </div>
         </div>
 
